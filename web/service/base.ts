@@ -461,8 +461,11 @@ export const request = async<T>(url: string, options = {}, otherOptions?: IOther
   try {
     const otherOptionsForBaseFetch = otherOptions || {}
     const [err, resp] = await asyncRunSafe<T>(baseFetch(url, options, otherOptionsForBaseFetch))
+    console.log('------------------- baseFetch err:', err)
+    console.log('------------------- resp:', resp)
     if (err === null)
       return resp
+
     const errResp: Response = err as any
     if (errResp.status === 401) {
       const [parseErr, errRespData] = await asyncRunSafe<ResponseError>(errResp.json())

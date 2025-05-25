@@ -9,6 +9,7 @@ const TIME_OUT = 100000
 export const ContentType = {
   json: 'application/json',
   stream: 'text/event-stream',
+  text: 'text/html',
   audio: 'audio/mpeg',
   form: 'application/x-www-form-urlencoded; charset=UTF-8',
   download: 'application/octet-stream', // for download
@@ -122,7 +123,7 @@ const baseClient = ky.create({
 export const baseOptions: RequestInit = {
   method: 'GET',
   mode: 'cors',
-  credentials: 'include', // always send cookies、HTTP Basic authentication.
+  credentials: 'omit', // always send cookies、HTTP Basic authentication.
   headers: new Headers({
     'Content-Type': ContentType.json,
   }),
@@ -169,7 +170,7 @@ async function base<T>(url: string, options: FetchOptionType = {}, otherOptions:
         ...baseHooks.beforeRequest || [],
         isPublicAPI && beforeRequestPublicAuthorization,
         !isPublicAPI && !isMarketplaceAPI && beforeRequestAuthorization,
-      ].filter(Boolean),
+      ].filter(Boolean) as BeforeRequestHook[],
       afterResponse: [
         ...baseHooks.afterResponse || [],
         afterResponseErrorCode(otherOptions),
@@ -198,6 +199,9 @@ async function base<T>(url: string, options: FetchOptionType = {}, otherOptions:
     && [ContentType.download, ContentType.audio, ContentType.downloadZip].includes(contentType)
   )
     return await res.blob() as T
+
+  if (contentType && contentType.includes(ContentType.text))
+    return res as T
 
   return await res.json() as T
 }

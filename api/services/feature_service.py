@@ -75,7 +75,7 @@ class SystemFeatureModel(BaseModel):
     max_plugin_package_size: int = dify_config.PLUGIN_MAX_PACKAGE_SIZE
     enable_email_code_login: bool = False
     enable_email_password_login: bool = True
-    enable_social_oauth_login: bool = False
+    enable_social_oauth_login: bool = True
     is_allow_register: bool = False
     is_allow_create_workspace: bool = False
     is_email_setup: bool = False

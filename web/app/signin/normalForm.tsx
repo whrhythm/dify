@@ -9,7 +9,7 @@ import MailAndPasswordAuth from './components/mail-and-password-auth'
 import SocialAuth from './components/social-auth'
 import SSOAuth from './components/sso-auth'
 import cn from '@/utils/classnames'
-import { getSystemFeatures, invitationCheck } from '@/service/common'
+import { invitationCheck } from '@/service/common'
 import { LicenseStatus, defaultSystemFeatures } from '@/types/feature'
 import Toast from '@/app/components/base/toast'
 import { IS_CE_EDITION } from '@/config'
@@ -46,12 +46,12 @@ const NormalForm = () => {
           message,
         })
       }
-      const features = await getSystemFeatures()
-      const allFeatures = { ...defaultSystemFeatures, ...features }
-      setSystemFeatures(allFeatures)
-      setAllMethodsAreDisabled(!allFeatures.enable_social_oauth_login && !allFeatures.enable_email_code_login && !allFeatures.enable_email_password_login && !allFeatures.sso_enforced_for_signin)
-      setShowORLine((allFeatures.enable_social_oauth_login || allFeatures.sso_enforced_for_signin) && (allFeatures.enable_email_code_login || allFeatures.enable_email_password_login))
-      updateAuthType(allFeatures.enable_email_password_login ? 'password' : 'code')
+      // const features = await getSystemFeatures()
+      // const allFeatures = { ...defaultSystemFeatures, ...features }
+      // setSystemFeatures(allFeatures)
+      // setAllMethodsAreDisabled(!allFeatures.enable_social_oauth_login && !allFeatures.enable_email_code_login && !allFeatures.enable_email_password_login && !allFeatures.sso_enforced_for_signin)
+      // setShowORLine((allFeatures.enable_social_oauth_login || allFeatures.sso_enforced_for_signin) && (allFeatures.enable_email_code_login || allFeatures.enable_email_password_login))
+      // updateAuthType(allFeatures.enable_email_password_login ? 'password' : 'code')
       if (isInviteLink) {
         const checkRes = await invitationCheck({
           url: '/activate/check',

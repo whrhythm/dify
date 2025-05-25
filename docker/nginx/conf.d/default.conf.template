@@ -35,6 +35,11 @@ server {
       include proxy.conf;
     }
 
+    location ~ (/console/api/v1/api/system-features|/console/api/v1/enterprise/sso/) {
+      proxy_pass http://10.67.100.103:8000;
+      include proxy.conf;
+    }
+
     location / {
       proxy_pass http://web:3000;
       include proxy.conf;

@@ -19,7 +19,8 @@ const SSOAuth: FC<SSOAuthProps> = ({
   const router = useRouter()
   const { t } = useTranslation()
   const searchParams = useSearchParams()
-  const invite_token = decodeURIComponent(searchParams.get('invite_token') || '')
+  // const invite_token = decodeURIComponent(searchParams.get('invite_token') || '')
+  const invite_token = 'jos'
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -36,6 +37,7 @@ const SSOAuth: FC<SSOAuthProps> = ({
       getUserOIDCSSOUrl(invite_token).then((res) => {
         document.cookie = `user-oidc-state=${res.state}`
         router.push(res.url)
+        console.log('+++++++++++++++', res)
       }).finally(() => {
         setIsLoading(false)
       })
