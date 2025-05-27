@@ -37,7 +37,6 @@ const SSOAuth: FC<SSOAuthProps> = ({
       getUserOIDCSSOUrl(invite_token).then((res) => {
         document.cookie = `user-oidc-state=${res.state}`
         router.push(res.url)
-        console.log('+++++++++++++++', res)
       }).finally(() => {
         setIsLoading(false)
       })
