@@ -181,7 +181,7 @@ async function base<T>(url: string, options: FetchOptionType = {}, otherOptions:
   const res = await client(fetchPathname, {
     ...init,
     headers,
-    credentials: isMarketplaceAPI
+    credentials: (isMarketplaceAPI || isPublicAPI)
       ? 'omit'
       : (options.credentials || 'include'),
     retry: {
